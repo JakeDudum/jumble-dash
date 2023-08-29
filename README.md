@@ -60,7 +60,7 @@ componentDidMount() {
 ```
 
 ## Pictures of Site
-[Click here to visit site](https://jumble-dash.herokuapp.com/)
+[Click here to visit site](https://jumbledash-72562938076f.herokuapp.com/)
 
 **Initial Login Page:** <br/>
 The initial login page goes to a menu page if the user is sucessfully authenticated.
@@ -148,7 +148,7 @@ USE database_name
 
 ## Author(s): 
 1. [Minori Hashimoto](https://github.com/minori-fh)
-2. Jake Dudum
-3. Adam Lehrer
-4. Darryl Tolentino 
+2. [Jake Dudum](https://github.com/JakeDudum)
+3. [Adam Lehrer](https://github.com/AdamSL394)
+4. [Darryl Tolentino](https://github.com/DarrylJLTolentino)
 
