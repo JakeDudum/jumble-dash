@@ -28,23 +28,11 @@
 }
 
 #delete-project{
-    background-color: transparent; 
+    background-color: red; 
     color: white; 
     border: none; 
     font-size: 12px;
     position: relative;
-    z-index: 10;
+    z-index: 10; 
+    margin-right: 5px;
 }
-
-/* .sideBtn {
-    height:30px;
-    width: 80%;
-    border-radius: 8px;
-    background-color:white;
-    color:rgb(5, 5, 41);
-    font-size: 16px;
-    position: relative;
-    top: 30px;
-    margin-bottom:5px;
-    margin-top:5px;
-} */

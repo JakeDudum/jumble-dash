@@ -1,15 +1,15 @@
 require("dotenv").config();
 
-const express      = require("express");
-const passport     = require('passport'); 
-const session      = require('express-session'); // cookie session
+const express = require("express");
+const passport = require('passport');
+const session = require('express-session'); // cookie session
 
 
-const app  = express();
+const app = express();
 const PORT = process.env.PORT || 8000;
 
 const routes = require("./routes");
-const db     = require("./models");
+const db = require("./models");
 
 require('./config/passport')(passport); // pass passport for configuration
 
@@ -19,9 +19,9 @@ app.use(express.json());
 
 if (process.env.NODE_ENV === "production") {
     app.use(express.static("client/build"));
-  }
+}
 
-  app.use(session({
+app.use(session({
     key: 'user_sid',
     secret: process.env.SESSION_SECRET,
     resave: true,

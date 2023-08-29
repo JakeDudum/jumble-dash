@@ -13,29 +13,25 @@ class Chart2 extends Component {
       type: 'bar',
       data: {
         labels: ["Task"],
-        datasets: [
-          {
-            label: "Unsolved Problems",
-            backgroundColor: "#df4343",
-            data: [(this.props.unsolved)]
-          },
-          {
-            label: "Solved Problems",
-            backgroundColor: "#379937",
-            data: [this.props.solved]
-          }
-        ]
+        datasets: [{
+          label: "Unsolved Problems",
+          backgroundColor: "#df4343",
+          data: [(this.props.unsolved)]
+        },
+        {
+          label: "Solved Problems",
+          backgroundColor: "#379937",
+          data: [this.props.solved]
+        }]
       },
       options: {
         scales: {
-          yAxes: [
-            {
-              ticks: {
-                min: 0,
-                max: 50
-              }
+          yAxes: [{
+            ticks: {
+              min: 0,
+              max: 50
             }
-          ]
+          }]
         }
       }
     });
@@ -64,14 +60,12 @@ class Chart2 extends Component {
         },
         options: {
           scales: {
-            yAxes: [
-              {
-                ticks: {
-                  min: 0,
-                  max: 25
-                }
+            yAxes: [{
+              ticks: {
+                min: 0,
+                max: 25
               }
-            ]
+            }]
           }
         }
       });
@@ -81,7 +75,7 @@ class Chart2 extends Component {
   render() {
     return (
       <div>
-        
+
         <canvas className='chart' ref={this.chart2Ref} />
       </div>
     )

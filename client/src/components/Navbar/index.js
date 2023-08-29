@@ -5,7 +5,7 @@ import LogoutButton from '../LogoutButton';
 import { Col, Row } from "../Grid";
 import Menu from "./menu.png";
 import Logo from './whiteLogo.png';
-import "./topnav.css";
+import "./style.css";
 
 export default class Navbar extends Component {
 
@@ -13,7 +13,6 @@ export default class Navbar extends Component {
         super(props)
         this.state = {
             responsiveMenu: false
-
         }
     }
 

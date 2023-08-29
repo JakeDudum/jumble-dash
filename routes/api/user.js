@@ -8,5 +8,5 @@ router.route("/")
   .get(userController.find)
   .put(userController.update)
   .delete(userController.delete);
-	
+
 module.exports = router;

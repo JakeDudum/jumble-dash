@@ -14,35 +14,30 @@ class EditBudget extends Component {
             newDesignBudget: this.props.design,
             newEngBudget: this.props.engineering,
             newSalesBudget: this.props.sales,
-            newFinanceBudget: this.props.finance, 
+            newFinanceBudget: this.props.finance,
             newSecurityBudget: this.props.security
         };
     };
 
     componentDidMount() {
         BudgetAPI.getBudget(this.props.projectID).then(res => {
-            let budgetTotal = (res.data.Design + res.data.Engineering + res.data.Finance + res.data.HR + res.data.Marketing + res.data.Sales + res.data.Security)
-
             this.setState({
                 id: res.data.id,
-                newBudgetTotal: budgetTotal,
+                newBudgetTotal: res.data.total,
                 newMarketingBudget: res.data.Marketing,
                 newHRBudget: res.data.HR,
                 newDesignBudget: res.data.Design,
                 newEngBudget: res.data.Engineering,
                 newSalesBudget: res.data.Sales,
-                newFinanceBudget: res.data.Finance, 
+                newFinanceBudget: res.data.Finance,
                 newSecurityBudget: res.data.Security,
             });
-
         });
     };
 
     componentDidUpdate(prevProps) {
         if (this.props.total !== prevProps.total || this.props.budgetChange !== prevProps.budgetChange) {
-
             BudgetAPI.getBudget(this.props.projectID).then(res => {
-
                 let budgetTotal = (res.data.Design + res.data.Engineering + res.data.Finance + res.data.HR + res.data.Marketing + res.data.Sales + res.data.Security)
 
                 this.setState({
@@ -53,7 +48,7 @@ class EditBudget extends Component {
                     newDesignBudget: res.data.Design,
                     newEngBudget: res.data.Engineering,
                     newSalesBudget: res.data.Sales,
-                    newFinanceBudget: res.data.Finance, 
+                    newFinanceBudget: res.data.Finance,
                     newSecurityBudget: res.data.Security,
                 });
             })
@@ -62,7 +57,6 @@ class EditBudget extends Component {
     };
 
     handleInputChange = event => {
-
         const { name, value } = event.target;
 
         this.setState({
@@ -84,11 +78,10 @@ class EditBudget extends Component {
             Security: parseInt(this.state.newSecurityBudget),
             ProjectId: this.props.projectID
         }
+
         const id = this.state.id
 
-        BudgetAPI.updateBudget(id, body).then(res => {
-        })
-        .catch(err => console.log(err.message));
+        BudgetAPI.updateBudget(id, body).then(res => { }).catch(err => console.log(err.message));
 
         BudgetAPI.getBudget(this.props.projectID).then(res => {
             let budgetTotal = (res.data.Design + res.data.Engineering + res.data.Finance + res.data.HR + res.data.Marketing + res.data.Sales + res.data.Security)
@@ -100,7 +93,7 @@ class EditBudget extends Component {
                 newDesignBudget: res.data.Design,
                 newEngBudget: res.data.Engineering,
                 newSalesBudget: res.data.Sales,
-                newFinanceBudget: res.data.Finance, 
+                newFinanceBudget: res.data.Finance,
                 newSecurityBudget: res.data.Security,
             });
         })
@@ -109,17 +102,17 @@ class EditBudget extends Component {
         this.componentDidMount()
     }
 
-    render(){
+    render() {
         return (
             <div>
                 <Row id='editBudget'>
                     <Col className="xl12">
                         <h1 id="nameStyling">Edit Budget</h1>
-                        <hr width="80%"/>
+                        <hr width="80%" />
                     </Col>
                 </Row>
                 <Row>
-                    <Col id = 'editBudgetFormCol' className="xl12">
+                    <Col id='editBudgetFormCol' className="xl12">
                         <p className='editBudgetLabel'>Design</p>
                         <input
                             type="number"
@@ -128,7 +121,7 @@ class EditBudget extends Component {
                             onChange={this.handleInputChange}
                             className="editBudgetLabel"
                             name="newDesignBudget"
-                        /><br/>
+                        /><br />
                         <p className='editBudgetLabel'>Engineering</p>
                         <input
                             type="number"
@@ -137,7 +130,7 @@ class EditBudget extends Component {
                             onChange={this.handleInputChange}
                             className="editBudgetLabel"
                             name="newEngBudget"
-                        /><br/>
+                        /><br />
                         <p className='editBudgetLabel'>Finance</p>
                         <input
                             type="number"
@@ -146,7 +139,7 @@ class EditBudget extends Component {
                             onChange={this.handleInputChange}
                             className="editBudgetLabel"
                             name="newFinanceBudget"
-                        /><br/>
+                        /><br />
                         <p className='editBudgetLabel'>HR</p>
                         <input
                             type="number"
@@ -155,7 +148,7 @@ class EditBudget extends Component {
                             onChange={this.handleInputChange}
                             className="editBudgetLabel"
                             name="newHRBudget"
-                        /><br/>
+                        /><br />
                         <p className='editBudgetLabel'>Marketing</p>
                         <input
                             type="number"
@@ -164,8 +157,8 @@ class EditBudget extends Component {
                             onChange={this.handleInputChange}
                             className="editBudgetLabel"
                             name="newMarketingBudget"
-                        /><br/> 
-                        <p className='editBudgetLabel'>Sales</p> 
+                        /><br />
+                        <p className='editBudgetLabel'>Sales</p>
                         <input
                             type="number"
                             value={this.state.newSalesBudget}
@@ -173,7 +166,7 @@ class EditBudget extends Component {
                             onChange={this.handleInputChange}
                             className="editBudgetLabel"
                             name="newSalesBudget"
-                        /><br/>
+                        /><br />
                         <p className='editBudgetLabel'>Security</p>
                         <input
                             type="number"
@@ -182,8 +175,8 @@ class EditBudget extends Component {
                             onChange={this.handleInputChange}
                             className="editBudgetLabel"
                             name="newSecurityBudget"
-                        />   
-                        <button id="submitBtn" onClick={(event) => {this.updateBudget(event); this.props.updateBudget(event)}}> Submit </button>
+                        />
+                        <button id="submitBtn" onClick={(event) => { this.updateBudget(event); this.props.updateBudget(event) }}> Submit </button>
                     </Col>
                 </Row>
             </div>

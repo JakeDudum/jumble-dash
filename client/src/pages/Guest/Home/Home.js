@@ -1,16 +1,15 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import Actions from "../../../utils/API";
-import "./Home.css"
-
 import Panel from '../../../components/Panel'
 import Input from '../../../components/Input'
 import LoginButton from '../../../components/LoginButton'
 import { Row, Col } from "../../../components/Grid";
+import "./style.css"
 
 import logo from "./images/logo.png"
 
 class Home extends Component {
-    constructor(props){
+    constructor(props) {
         super(props)
         this.state = {
             isLoggedIn: false,
@@ -24,7 +23,7 @@ class Home extends Component {
         }
     }
 
-    resetError = () => { 
+    resetError = () => {
         this.setState({
             errClassName: "",
             errorMsg: ""
@@ -32,34 +31,34 @@ class Home extends Component {
     }
 
     handleSubmitAuth = (e) => {
-        if(this.refs.submitForm.reportValidity()) {
-          e.preventDefault();
-          this.setState({
-              loading: true
-          })
-    
-          const userData = {
-            email: this.state.email,   
-            local_pw: this.state.local_pw
-          }
-        
-          let selectedButton = e.target.innerText;
-          selectedButton = selectedButton.toLowerCase();
-    
-          this.refs.submitForm.reset();
-    
-          selectedButton === "signup" ?  this.handleSignup(userData) : this.handleLogin(userData)
+        if (this.refs.submitForm.reportValidity()) {
+            e.preventDefault();
+            this.setState({
+                loading: true
+            })
+
+            const userData = {
+                email: this.state.email,
+                local_pw: this.state.local_pw
+            }
+
+            let selectedButton = e.target.innerText;
+            selectedButton = selectedButton.toLowerCase();
+
+            this.refs.submitForm.reset();
+
+            selectedButton === "signup" ? this.handleSignup(userData) : this.handleLogin(userData)
         }
     }
 
     validateRes = (response) => {
-        if(response.success){
+        if (response.success) {
             this.setState({
                 isLoggedIn: response,
                 errorMsg: "",
                 errClassName: ""
             });
-            
+
             window.location.href = "/"
         }
         else {
@@ -70,7 +69,7 @@ class Home extends Component {
                 `,
                 errClassName: "error"
             })
-        } 
+        }
     }
 
     handleSignup = (userData) => {
@@ -79,11 +78,11 @@ class Home extends Component {
         })
 
         Actions.handleSignup(userData)
-        .then(data => {return data.json()})
-        .then(response=>{
-            this.validateRes(response)
-        })
-        .catch(err=> console.log("err",err));
+            .then(data => { return data.json() })
+            .then(response => {
+                this.validateRes(response)
+            })
+            .catch(err => console.log("err", err));
     }
 
     handleLogin = (userData) => {
@@ -91,24 +90,23 @@ class Home extends Component {
             new: false
         })
         Actions.handleLogin(userData)
-        .then(data => {return data.json()})
-        .then(response=>{
-            // console.log(response)
-            this.validateRes(response)
-        })
-        .catch(err=> console.log("err",err));
+            .then(data => { return data.json() })
+            .then(response => {
+                this.validateRes(response)
+            })
+            .catch(err => console.log("err", err));
     }
 
     handleInputChange = (e) => {
         const { name, value } = e.target;
-        
+
         this.setState({
             [name]: value
-        }); 
+        });
     }
 
     renderAuthForm = () => {
-        return(
+        return (
             <Row id='home-form-grid'>
                 <Col className='xl6 xl6home' id='main-left-col'>
                 </Col>
@@ -118,33 +116,33 @@ class Home extends Component {
                     </header>
                     <form id="home-form" ref="submitForm" onClick={this.resetError}>
                         <p id="form-error" className={this.state.errClassName}>{this.state.errorMsg}</p>
-                        <Input 
-                            elementID="user-email" 
-                            inputType="email" 
-                            placeholder="email" 
-                            img="email" 
-                            required={true} 
-                            size="3" 
-                            name="email" 
-                            handleChange={this.handleInputChange}/>
-                        <Input 
-                            elementID="user-pw" 
-                            inputType="password" 
-                            placeholder="password" 
-                            img="password" 
-                            required={true} 
-                            size="6" 
-                            name="local_pw" 
-                            handleChange={this.handleInputChange}/>
-                        <LoginButton 
-                            handleBtnClick={this.handleSubmitAuth} 
-                            >
-                                login
+                        <Input
+                            elementID="user-email"
+                            inputType="email"
+                            placeholder="email"
+                            img="email"
+                            required={true}
+                            size="3"
+                            name="email"
+                            handleChange={this.handleInputChange} />
+                        <Input
+                            elementID="user-pw"
+                            inputType="password"
+                            placeholder="password"
+                            img="password"
+                            required={true}
+                            size="6"
+                            name="local_pw"
+                            handleChange={this.handleInputChange} />
+                        <LoginButton
+                            handleBtnClick={this.handleSubmitAuth}
+                        >
+                            login
                         </LoginButton>
-                        <LoginButton 
-                            handleBtnClick={this.handleSubmitAuth} 
-                            >
-                                signup
+                        <LoginButton
+                            handleBtnClick={this.handleSubmitAuth}
+                        >
+                            signup
                         </LoginButton>
                     </form>
                 </Col>
@@ -152,10 +150,10 @@ class Home extends Component {
         )
     }
 
-    render(){
-        return(
+    render() {
+        return (
             <Panel>
-                {(this.state.loading)? this.renderAuthForm() : this.renderAuthForm()}
+                {(this.state.loading) ? this.renderAuthForm() : this.renderAuthForm()}
             </Panel>
         )
     }

@@ -5,8 +5,6 @@ import Budget from "../Budget";
 import Problems from "../Problems";
 import "./style.css";
 
-
-
 class Dashboard extends Component {
 
     constructor(props) {
@@ -41,7 +39,7 @@ class Dashboard extends Component {
                             </Row>
                             <Row>
                                 <Col className="xl6 l6 m12">
-                                    <Budget projectID={this.props.projectID} status={this.props.status} chartSwitch={this.props.chartSwitch} updateBudget={this.handleUpdateBudget} budgetChange={this.state.budgetEdited}/>
+                                    <Budget projectID={this.props.projectID} status={this.props.status} chartSwitch={this.props.chartSwitch} updateBudget={this.handleUpdateBudget} budgetChange={this.state.budgetEdited} />
                                 </Col>
 
                                 <Col className="xl6 l6 m12">
@@ -54,9 +52,9 @@ class Dashboard extends Component {
                                 </Col>
                             </Row>
                         </div>
-                        : 
+                        :
                         <Row>
-                            <Col id = 'noCurrentProjects' className='xl12'>
+                            <Col id='noCurrentProjects' className='xl12'>
                                 You currently have no open projects. Hit + on the side-nav to start!
                             </Col>
                         </Row>

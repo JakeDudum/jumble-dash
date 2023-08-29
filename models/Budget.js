@@ -35,11 +35,10 @@ module.exports = (sequelize, DataTypes) => {
             defaultValue: 0
         }
     }, {
-            timestamps: false
-        });
+        timestamps: false
+    });
 
     Budget.associate = function (models) {
-
         Budget.belongsTo(models.Project, {
             foreignKey: {
                 allowNull: false

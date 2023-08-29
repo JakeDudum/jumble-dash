@@ -22,7 +22,6 @@ module.exports = {
     },
     create: function (req, res) {
         var userID = req.session.passport.user;
-        // console.log(req.body)
         db.Project.create({
             name: req.body.name,
             UserUuid: userID
@@ -31,7 +30,6 @@ module.exports = {
         })
     },
     remove: function (req, res) {
-        console.log(req)
         db.Project.destroy({
             where: {
                 id: req.params.id

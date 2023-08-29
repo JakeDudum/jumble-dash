@@ -4,25 +4,24 @@ import UserRoutes from './routes/UserRoutes'
 import GuestRoutes from './routes/GuestRoutes'
 import Actions from "./utils/API";
 import 'normalize.css';
-
 import './App.css';
 
 class App extends Component {
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {
       isLoggedIn: false
     }
   }
-  
-  componentWillMount(){
+
+  componentWillMount() {
     this.checkAuth();
   }
-  
+
   // check user validation serverside
-  checkAuth(){
+  checkAuth() {
     Actions.checkAuth()
-      .then(data => {return data.json()})
+      .then(data => { return data.json() })
       .then(response => {
         this.setState({
           isLoggedIn: response
@@ -33,12 +32,9 @@ class App extends Component {
 
   // routing for unauthorized users
   guestRouting = () => {
-    return(
+    return (
       <Router>
         <div className="App">
-          {/* <header>
-            <img src={logo} className="App-logo" alt="logo" />
-          </header> */}
           <div className="content">
             <Switch>
               <Route path="*" component={GuestRoutes} />
@@ -51,7 +47,7 @@ class App extends Component {
 
   // routing for authorized users
   userRouting = () => {
-    return(
+    return (
       <Router>
         <div className="App">
           <div className="content">
@@ -71,7 +67,7 @@ class App extends Component {
 
   // send user to proper route accounting to authentication
   render() {
-    switch(this.state.isLoggedIn){
+    switch (this.state.isLoggedIn) {
       case false:
         return this.guestRouting()
       case true:

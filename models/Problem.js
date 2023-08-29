@@ -13,7 +13,6 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     Problem.associate = function (models) {
-
         Problem.belongsTo(models.Task, {
             foreignKey: {
                 name: "TaskId",

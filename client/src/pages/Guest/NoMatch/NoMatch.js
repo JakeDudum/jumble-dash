@@ -1,13 +1,12 @@
 import React from 'react'
-
 import Panel from '../../../components/Panel'
 
 const NoMatch = (props) => {
-    return(
+    return (
         <Panel>
-             <h1>404 Page not found</h1>
+            <h1>404 Page not found</h1>
         </Panel>
-       
+
     )
 }
 

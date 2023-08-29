@@ -26,32 +26,25 @@ class Problems extends Component {
     }
 
     componentDidMount() {
-
         TaskAPI.getIncompleteTasks(this.props.projectID).then(res => {
             this.setState({
                 tasks: res.data
             });
             TaskAPI.getUnsovedTaskProblems(this.props.projectID).then(res => {
-                console.log("THE UNSOLVED",res.data);
                 this.setState({
                     taskUnsolvedProblems: res.data
                 });
                 TaskAPI.getSovledTaskProblems(this.props.projectID).then(res => {
-                    console.log("THE SOLVED",res.data);
                     this.setState({
                         taskSolvedProblems: res.data,
                         counter: this.state.counter + 1
                     });
-                })
-                    .catch(err => console.log(err.message));
-            })
-                .catch(err => console.log(err.message));
-        })
-            .catch(err => console.log(err.message));
+                }).catch(err => console.log(err.message));
+            }).catch(err => console.log(err.message));
+        }).catch(err => console.log(err.message));
     }
 
     componentDidUpdate(prevProps) {
-
         if (this.props.projectID !== prevProps.projectID || this.props.tasksAdded !== prevProps.tasksAdded) {
             TaskAPI.getIncompleteTasks(this.props.projectID).then(res => {
                 this.setState({
@@ -68,19 +61,14 @@ class Problems extends Component {
                             taskSolvedProblems: res.data,
                             counter: this.state.counter + 1
                         });
-                    })
-                        .catch(err => console.log(err.message));
-                })
-                    .catch(err => console.log(err.message));
-            })
-                .catch(err => console.log(err.message));
+                    }).catch(err => console.log(err.message));
+                }).catch(err => console.log(err.message));
+            }).catch(err => console.log(err.message));
         }
     }
 
     handleInputChange = event => {
-
         const { name, value } = event.target;
-
         this.setState({
             [name]: value
         })
@@ -117,12 +105,9 @@ class Problems extends Component {
                         taskSolvedProblems: res.data,
                         counter: this.state.counter + 1
                     });
-                })
-                    .catch(err => console.log(err.message));
-            })
-                .catch(err => console.log(err.message));
-        })
-            .catch(err => console.log(err.message));
+                }).catch(err => console.log(err.message));
+            }).catch(err => console.log(err.message));
+        }).catch(err => console.log(err.message));
     }
 
     viewProblem = event => {
@@ -137,14 +122,11 @@ class Problems extends Component {
                 this.setState({
                     solved: res.data.length
                 })
-            })
-                .catch(err => console.log(err.message));
-        })
-            .catch(err => console.log(err.message));
+            }).catch(err => console.log(err.message));
+        }).catch(err => console.log(err.message));
     }
 
     completeProblem = id => {
-
         const solve = {
             solved: true
         }
@@ -173,10 +155,8 @@ class Problems extends Component {
                         taskSolvedProblems: res.data,
                         counter: this.state.counter + 1
                     });
-                })
-                    .catch(err => console.log(err.message));
-            })
-                .catch(err => console.log(err.message));
+                }).catch(err => console.log(err.message));
+            }).catch(err => console.log(err.message));
         })
     }
 

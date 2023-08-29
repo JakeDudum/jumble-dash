@@ -27,23 +27,19 @@ class Tasks extends Component {
 
     componentDidMount() {
         TaskAPI.getIncompleteTasks(this.props.projectID).then(res => {
-
             this.setState({
                 tasks: res.data,
                 tasksIncomplete: res.data.length
             });
-        })
-            .catch(err => console.log(err.message));
+        }).catch(err => console.log(err.message));
 
         TaskAPI.getTasks(this.props.projectID).then(res => {
-
             this.setState({
                 tasksTotal: res.data.length,
                 tasksComplete: res.data.length - this.state.tasksIncomplete,
                 counter: this.state.counter + 1
             })
-        })
-            .catch(err => console.log(err.message));
+        }).catch(err => console.log(err.message));
     }
 
     componentDidUpdate(prevProps) {
@@ -63,17 +59,13 @@ class Tasks extends Component {
                         tasksComplete: complete,
                         counter: this.state.counter + 1
                     })
-                })
-                    .catch(err => console.log(err.message));
-            })
-                .catch(err => console.log(err.message));
+                }).catch(err => console.log(err.message));
+            }).catch(err => console.log(err.message));
         }
     }
 
     handleInputChange = event => {
-
         const { name, value } = event.target;
-
         this.setState({
             [name]: value
         })
@@ -94,7 +86,6 @@ class Tasks extends Component {
 
         TaskAPI.createTask(task).then(res => {
             let tasksList = this.state.tasks;
-            console.log("", res)
             tasksList.push(res.data);
             this.setState({
                 tasks: tasksList,
@@ -108,13 +99,11 @@ class Tasks extends Component {
                 counter: this.state.counter + 1
             });
             this.props.updateTasks();
-        })
-            .catch(err => console.log(err.message));
+        }).catch(err => console.log(err.message));
 
     }
 
     completeTask = id => {
-
         const com = {
             complete: true
         }

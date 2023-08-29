@@ -22,7 +22,6 @@ module.exports = {
         });
     },
     create: function (req, res) {
-        console.log(req);
         db.Problem.create({
             problem: req.body.problem,
             TaskId: req.body.TaskId,

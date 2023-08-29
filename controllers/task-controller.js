@@ -29,7 +29,7 @@ module.exports = {
             include: [{
                 model: db.Problem,
                 required: false,
-                where : {
+                where: {
                     solved: false
                 }
             }]
@@ -46,7 +46,7 @@ module.exports = {
             include: [{
                 model: db.Problem,
                 required: false,
-                where : {
+                where: {
                     solved: true
                 }
             }]

@@ -11,8 +11,8 @@ import MenuLogoutButton from '../../../components/MenuLogoutButton';
 import MenuButton from '../../../components/MenuButtons/menuButtons';
 import MenuCreateProject from '../../../components/MenuCreateProject';
 import Navbar from '../../../components/Navbar';
-import "./Profile.css";
 import Logo from './whiteLogo.png';
+import "./style.css";
 
 class Profile extends Component {
     constructor(props) {
@@ -21,7 +21,6 @@ class Profile extends Component {
             userAccount: false,
             edit: false,
             selectedProject: -1,
-            name: "",
             projects: [],
             loggedIn: true,
             showDash: false,
@@ -40,15 +39,9 @@ class Profile extends Component {
         right.classList.toggle("show")
     }
 
-
     componentDidMount() {
         ProjectAPI.findProjects().then((res) => {
-            console.log("this is res dot data!!!!!!!!!!!!!!!", res.data)
             this.setState({ projects: res.data })
-            console.log(this.state.loggedIn)
-
-            console.log("projects", this.state.projects)
-            console.log("length", this.state.projects.length)
         });
 
         requestAnimationFrame(() => {
@@ -72,15 +65,11 @@ class Profile extends Component {
     }
 
     loadProject = id => {
-        console.log("hello my id is: ", id)
-
         this.setState({
             selectedProject: id
         });
 
         ProjectAPI.getProject(id).then((res) => {
-            console.log("hello this is the project name", res.data.name)
-
             this.setState({
                 projectName: res.data.name
             });
@@ -89,7 +78,6 @@ class Profile extends Component {
     }
 
     handleEdit = () => {
-
         if (this.state.showDash === false) {
             this.setState({
                 showDash: true
@@ -103,16 +91,13 @@ class Profile extends Component {
         }
         else {
             ProjectAPI.findProjects().then((res) => {
-                console.log(res.data)
                 this.setState({ projects: res.data, edit: false })
+                this.loadProject(this.state.projects[this.state.projects.length - 1].id);
             });
         }
     }
 
     loadDash = (id) => {
-
-        console.log("hello this is my id too", id)
-
         this.setState({
             selectedProject: id,
             showDash: true
@@ -122,8 +107,6 @@ class Profile extends Component {
         menu.classList.toggle("hide")
 
         ProjectAPI.getProject(id).then((res) => {
-            console.log("hello this is the project name", res.data.name)
-
             this.setState({
                 projectName: res.data.name
             });
@@ -131,13 +114,19 @@ class Profile extends Component {
     }
 
     deleteProject = (id) => {
-        console.log("hello??")
-        console.log(id)
-
         ProjectAPI.deleteProject(id).then(res => {
-            console.log(res)
-        })
-            .catch(err => console.log(err.message));
+            let updateProjects = this.state.projects.filter(project => project.id != id);
+            this.setState({
+                projects: updateProjects
+            })
+            if (this.state.projects.length === 0) {
+                this.setState({
+                    selectedProject: -1
+                })
+            } else {
+                this.loadProject(this.state.projects[0].id);
+            }
+        }).catch(err => console.log(err.message));
     }
 
     render() {
@@ -146,15 +135,17 @@ class Profile extends Component {
                 {!this.state.showDash ?
                     <Row id='home-form-grid'>
                         <Col className='xl6 xl6menu menu-left-col' id='menu-left-col'>
-
                         </Col>
                         <Col className='xl6 menu-right-col' id='menu-right-col'>
                             <div id='projectMenuContainer'>
                                 <p id='menuHeader'>What can we help you manage today?</p>
                                 <div id='projectMenuButtons'>
-                                    {this.state.projects.map(project => (
-                                        <MenuButton click={this.loadDash} id={project.id} name={project.name} key={project.id} />
-                                    ))}
+                                    {this.state.projects.length === 0 ?
+                                        <div>No Projects</div> :
+                                        this.state.projects.map(project => (
+                                            <MenuButton click={this.loadDash} id={project.id} name={project.name} key={project.id} />
+                                        ))
+                                    }
                                 </div>
                                 <MenuCreateProject edit={this.handleEdit} />
                             </div>
@@ -172,17 +163,14 @@ class Profile extends Component {
                                 {this.state.projects.map(project => (
                                     <ProjectButton click={this.loadProject} id={project.id} name={project.name} key={project.id} delete={this.deleteProject} />
                                 ))}
-
                                 <CreateProject edit={this.handleEdit} />
-
                                 <LogoutButton logout={this.handlelogout.bind(this)} />
                             </Col>
                             <Col className="xl10 l12">
-                                {
-                                    !this.state.edit ?
-                                        <Dashboard projectName={this.state.projectName} projectID={this.state.selectedProject}>
-                                        </Dashboard>
-                                        : <NewProjectForm edit={this.handleEdit} projectID={this.state.selectedProject} />
+                                {!this.state.edit ?
+                                    <Dashboard projectName={this.state.projectName} projectID={this.state.selectedProject}>
+                                    </Dashboard>
+                                    : <NewProjectForm edit={this.handleEdit} projectID={this.state.selectedProject} />
                                 }
                             </Col>
                         </Row>

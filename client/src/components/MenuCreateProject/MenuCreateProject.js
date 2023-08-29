@@ -4,7 +4,7 @@ import "./style.css";
 function MenuCreateProject(props) {
 
     return (
-        <button className="MenuNewProject" onClick={() => props.edit()} style={{width:100}} >+</button>
+        <button className="MenuNewProject" onClick={() => props.edit()} style={{ width: 100 }} >+</button>
     );
 
 }

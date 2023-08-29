@@ -1,11 +1,11 @@
 const router = require("express").Router();
 
-const UserRoutes 	 = require("./user");
-const AccountRoutes  = require("./account");
-const ProjectRoutes  = require("./project");
-const BudgetRoutes   = require("./budget");
-const TaskRoutes 	 = require("./task");
-const ProblemRoutes  = require("./problem");
+const UserRoutes = require("./user");
+const AccountRoutes = require("./account");
+const ProjectRoutes = require("./project");
+const BudgetRoutes = require("./budget");
+const TaskRoutes = require("./task");
+const ProblemRoutes = require("./problem");
 
 router.use("/user", UserRoutes);
 router.use("/account", AccountRoutes);

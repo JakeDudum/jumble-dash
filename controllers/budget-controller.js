@@ -12,7 +12,8 @@ module.exports = {
     },
     create: function (req, res) {
         db.Budget.create({
-            total: req.body.total,
+            total: parseInt(req.body.Marketing) + parseInt(req.body.HR) + parseInt(req.body.Design) + parseInt(req.body.Engineering) + parseInt(req.body.Sales) +
+                parseInt(req.body.Finance) + parseInt(req.body.Security),
             Marketing: req.body.Marketing,
             HR: req.body.HR,
             Design: req.body.Design,
@@ -22,7 +23,7 @@ module.exports = {
             Security: req.body.Security,
             ProjectId: req.body.ProjectId
         }).then(function (newBudget) {
-            console.log(newBudget)
+            res.json(newBudget)
         })
     },
     update: function (req, res) {

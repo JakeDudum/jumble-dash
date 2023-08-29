@@ -1,4 +1,4 @@
-const router   = require("express").Router();
+const router = require("express").Router();
 const passport = require('passport');
 
 // =====================================
@@ -25,25 +25,25 @@ router.post('/signup', (req, res, next) => {
 passportAuthenticate = (localStrategy, req, res, next) => {
   passport.authenticate(localStrategy, (err, user, info) => {
     if (err) {
-    
+
       return next(err); // will generate a 500 error
     }
     // Generate a JSON response reflecting authentication status
     if (!user) {
-     console.log(info)
-      
-      return res.send({ success : false, message: info });
+      console.log(info)
+
+      return res.send({ success: false, message: info });
     }
-    else{
+    else {
       req.login(user, loginErr => {
         if (loginErr) {
           return next(loginErr);
         }
 
-        res.cookie('user_email', user.email );
-        res.cookie('authenticated', "true" );
+        res.cookie('user_email', user.email);
+        res.cookie('authenticated', "true");
 
-        return res.json({ success : true });
+        return res.json({ success: true });
       });
     }
   })(req, res, next);
@@ -53,20 +53,20 @@ passportAuthenticate = (localStrategy, req, res, next) => {
 // LOGOUT ==============================
 // =====================================
 router.get('/logout', (req, res) => {
-     req.session.destroy(err => {
-      if(err) throw err
-      req.logout();
-      res.clearCookie("user_sid");
-      res.clearCookie("user_email");
-      res.clearCookie("authenticated");
-      res.json(req.isAuthenticated());
-    });
+  req.session.destroy(err => {
+    if (err) throw err
+    req.logout();
+    res.clearCookie("user_sid");
+    res.clearCookie("user_email");
+    res.clearCookie("authenticated");
+    res.json(req.isAuthenticated());
+  });
 });
 
 // =====================================
 // Auth Validation =====================
 // =====================================
-router.get('/auth', (req, res)=> {
+router.get('/auth', (req, res) => {
   let auth = req.isAuthenticated();
   res.json(auth);
 });

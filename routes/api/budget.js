@@ -8,7 +8,7 @@ router.route("/")
   .post(budget.create);
 
 router.route("/:id")
-    .get(budget.findOne)
-    .put(budget.update);
-	
+  .get(budget.findOne)
+  .put(budget.update);
+
 module.exports = router;

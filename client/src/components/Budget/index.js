@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import BudgetAPI from '../../utils/API-budget';
-import { Col, Row } from "../Grid";
 import Chart1 from '../chart1';
 import Chart4 from '../chart4';
 import EditBudget from '../EditBudget/EditBudget'
@@ -29,16 +28,14 @@ class Budget extends Component {
             newBudgetSecurity: "",
             chartSwitch: false,
             counter: 0,
-            budgetDept: ["Marketing", "HR", "Design", "Engineering", "Sales", "Finance", "Security"]
+            budgetDept: ["Design", "Engineering", "Finance", "HR", "Marketing", "Sales", "Security"]
         }
     }
 
     componentDidMount() {
         BudgetAPI.getBudget(this.props.projectID).then(res => {
-            console.log(res);
-            let budgetTotal = (res.data.Design + res.data.Engineering + res.data.Finance + res.data.HR + res.data.Marketing + res.data.Sales + res.data.Security)
             this.setState({
-                budgetTotal: budgetTotal, 
+                budgetTotal: res.data.total,
                 budgetDesign: res.data.Design,
                 budgetEngineering: res.data.Engineering,
                 budgetFinance: res.data.Finance,
@@ -58,13 +55,14 @@ class Budget extends Component {
             BudgetAPI.getBudget(this.props.projectID).then(res => {
                 var arr = Object.keys(res.data);
                 var deptNames = [];
+
                 for (var i = 2; i < arr.length; i++) {
                     deptNames.push(arr[i]);
                 }
 
                 let budgetTotal = (res.data.Design + res.data.Engineering + res.data.Finance + res.data.HR + res.data.Marketing + res.data.Sales + res.data.Security)
                 this.setState({
-                    budgetTotal: budgetTotal, 
+                    budgetTotal: budgetTotal,
                     budgetDesign: res.data.Design,
                     budgetEngineering: res.data.Engineering,
                     budgetFinance: res.data.Finance,
@@ -88,8 +86,7 @@ class Budget extends Component {
         }
     }
 
-     handleInputChange = event => {
-
+    handleInputChange = event => {
         const { name, value } = event.target
         this.setState({
             [name]: value
@@ -99,7 +96,6 @@ class Budget extends Component {
     handleChartSwitch = event => {
         event.preventDefault();
 
-        console.log("SWITCH NOW");
         if (this.state.chartSwitch === false) {
             this.setState({
                 chartSwitch: true
@@ -129,7 +125,6 @@ class Budget extends Component {
 
         BudgetAPI.updateBudget(this.props.projectID, body)
             .then(res => {
-                console.log("NEW BUDGET EHRE", res)
                 this.setState({
                     budgetTotal: this.state.newBudgetTotal,
                     budgetDesign: this.state.newBudgetDesign,
@@ -158,7 +153,7 @@ class Budget extends Component {
         return (
             <div>
                 <h1 id="nameStyling"> Budget: ${this.state.budgetTotal}</h1>
-                <hr width="80%"/>
+                <hr width="80%" />
                 {!this.state.chartSwitch ?
                     <Chart1
                         budgetChange={this.props.budgetChange}
@@ -187,7 +182,7 @@ class Budget extends Component {
                         security={this.state.budgetSecurity}
                     />}
                 <button id='switchDoughnut' onClick={this.handleChartSwitch}>Switch</button>
-              
+
                 <EditBudget
                     budgetChange={this.props.budgetChange}
                     updateBudget={this.props.updateBudget}
